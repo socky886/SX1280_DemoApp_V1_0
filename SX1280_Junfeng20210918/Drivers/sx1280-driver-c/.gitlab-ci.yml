@@ -1,0 +1,14 @@
+stages:
+  - build
+
+build-library-mbed:
+  stage: build
+  before_script:
+    - cd build
+    - mbed new --mbedlibrary --scm none .
+    - mbed deploy
+  script:
+    - mbed compile -t GCC_ARM -m NUCLEO_L476RG --source ../ --source . -v --library
+  artifacts:
+    paths:
+      - build/BUILD/libraries/build/NUCLEO_L476RG/GCC_ARM/libbuild.a

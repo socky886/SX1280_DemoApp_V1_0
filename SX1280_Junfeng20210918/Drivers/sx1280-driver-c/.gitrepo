@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://ch02git1.semtech.com/sx1280/sx1280-driver-c.git
+	branch = develop
+	commit = f1d02686583067c17a2d1eeebeb7b29a47a7314e
+	parent = c874602ef8a105dfd6ef531bb8614fcc0655805a
+	cmdver = 0.3.1
