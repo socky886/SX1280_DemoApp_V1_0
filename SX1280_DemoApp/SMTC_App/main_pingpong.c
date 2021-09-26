@@ -95,7 +95,8 @@ typedef enum
     APP_TX_TIMEOUT,
 }AppStates_t;
 
-
+void sx1280_app_tx(void);
+void sx1280_app_rx(void);
 /*!
  * \brief Function to be executed on Radio Tx Done event
  */
@@ -304,16 +305,34 @@ int main( void )
         ble_header_adv.Fields.pduType = 2;
     #endif // MODE_BLE
 
+    #if defined(MODE_GFSK)
+      Radio.SetSyncWord( 1, ( uint8_t[] ){ 0xDD, 0xA0, 0x96, 0x69, 0xDD } );
+      // only used in GFSK,FLRC
+      uint16_t crcSeedLocal=0x4567;
+      Radio.SetCrcSeed(crcSeedLocal);
+      Radio.SetCrcPolynomial(0x0123);
+    #endif
+    
+    // AppState=APP_TX;
+    // while (1)
+    // {
+    //     sx1280_app_tx();
+    //     SX1280ProcessIrqs();
+    // }
+    
     // GpioWrite( LED_TX_PORT, LED_TX_PIN, 0 );
     // GpioWrite( LED_RX_PORT, LED_RX_PIN, 0 );
 
     // Radio.SetDioIrqParams( RxIrqMask,IRQ_RADIO_NONE, IRQ_RADIO_NONE,RxIrqMask );
     // Radio.SetRx( ( TickTime_t ) { RX_TIMEOUT_TICK_SIZE, RX_TIMEOUT_VALUE } );
 
-        memcpy(Buffer, PingMsg, PINGPONGSIZE);
-        Radio.SetDioIrqParams(TxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE,TxIrqMask);
-        Radio.SendPayload(Buffer, BufferSize, (TickTime_t){RX_TIMEOUT_TICK_SIZE, TX_TIMEOUT_VALUE});
-        AppState = APP_LOWPOWER;
+    //     // memcpy(Buffer, PingMsg, PINGPONGSIZE);
+    //     // Radio.SetDioIrqParams(TxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE,TxIrqMask);
+    //     // Radio.SendPayload(Buffer, BufferSize, (TickTime_t){RX_TIMEOUT_TICK_SIZE, TX_TIMEOUT_VALUE});
+    //     AppState = APP_LOWPOWER;
+
+    // sx1280_app_tx();
+    sx1280_app_rx();
 
         while (1)
         {
@@ -332,8 +351,9 @@ int main( void )
                 #endif // MODE_BLE
 
                     printf("%c %c %c %c\n", Buffer[0], Buffer[1], Buffer[2], Buffer[3]);
-                    Radio.SetDioIrqParams(RxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE, RxIrqMask);
-                    Radio.SetRx((TickTime_t){RX_TIMEOUT_TICK_SIZE, RX_TIMEOUT_VALUE});
+                    // Radio.SetDioIrqParams(RxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE, RxIrqMask);
+                    // Radio.SetRx((TickTime_t){RX_TIMEOUT_TICK_SIZE, RX_TIMEOUT_VALUE});
+                    sx1280_app_rx();
 
                     // if( isMaster == true )
                     // {
@@ -425,9 +445,10 @@ int main( void )
 
                 // repeat send packet the interval is 200ms
                 HAL_Delay(200);
-                memcpy(Buffer, PingMsg, PINGPONGSIZE);
-                Radio.SetDioIrqParams(TxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE, TxIrqMask);
-                Radio.SendPayload(Buffer, BufferSize, (TickTime_t){RX_TIMEOUT_TICK_SIZE, TX_TIMEOUT_VALUE});
+                // memcpy(Buffer, PingMsg, PINGPONGSIZE);
+                // Radio.SetDioIrqParams(TxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE, TxIrqMask);
+                // Radio.SendPayload(Buffer, BufferSize, (TickTime_t){RX_TIMEOUT_TICK_SIZE, TX_TIMEOUT_VALUE});
+                sx1280_app_tx();
                 break;
 
             case APP_RX_TIMEOUT:
@@ -535,3 +556,38 @@ void OnRangingDone( IrqRangingCode_t val )
 void OnCadDone( bool channelActivityDetected )
 {
 }
+
+/**
+ * @brief sx1280 transmit packet
+ * 
+ */
+void sx1280_app_tx(void)
+{
+    // if(AppState == APP_LOWPOWER)
+    //     return;
+    // else
+    {
+        memcpy(Buffer, PingMsg, PINGPONGSIZE);
+        Radio.SetDioIrqParams(TxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE, TxIrqMask);
+        Radio.SendPayload(Buffer, BufferSize, (TickTime_t){RX_TIMEOUT_TICK_SIZE, TX_TIMEOUT_VALUE});
+        AppState = APP_LOWPOWER;
+    }    
+}
+
+/**
+ * @brief sx1280 receive packet
+ * 
+ */
+void sx1280_app_rx(void)
+{
+    // if(AppState == APP_LOWPOWER)
+    //     return;
+    // else
+    {
+        Radio.SetDioIrqParams(RxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE, RxIrqMask);
+        Radio.SetRx((TickTime_t){RX_TIMEOUT_TICK_SIZE, RX_TIMEOUT_VALUE});
+        AppState = APP_LOWPOWER;
+    }
+    
+}
+

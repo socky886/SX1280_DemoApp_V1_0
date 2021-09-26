@@ -129,4 +129,6 @@ uint8_t SX1280HalGetDioStatus( void );
 
 void SX1280HalIoIrqInit( DioIrqHandler **irqHandlers );
 
+
+
 #endif // __SX1280_HAL_H__

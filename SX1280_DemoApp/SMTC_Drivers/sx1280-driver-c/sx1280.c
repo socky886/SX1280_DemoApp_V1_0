@@ -28,6 +28,7 @@ typedef struct
     uint8_t       Value;                            //!< The value of the register
 }RadioRegisters_t;
 
+
 /*!
  * \brief Radio hardware registers initialization definition
  */
