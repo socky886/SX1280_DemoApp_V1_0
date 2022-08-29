@@ -15,19 +15,19 @@
 #define RADIO_SCK_PIN       GPIO_PIN_5
 #define RADIO_SCK_PORT      GPIOA
 
-#define RADIO_nRESET_PIN    GPIO_PIN_10
+#define RADIO_nRESET_PIN    GPIO_PIN_0
 #define RADIO_nRESET_PORT   GPIOA
 
-#define RADIO_BUSY_PIN      GPIO_PIN_9
-#define RADIO_BUSY_PORT     GPIOA
+#define RADIO_BUSY_PIN      GPIO_PIN_3
+#define RADIO_BUSY_PORT     GPIOB
 
-// #define RADIO_DIO2_Pin 		 GPIO_PIN_4
-// #define RADIO_DIO2_GPIO_Port GPIOB
+#define RADIO_DIO1_Pin 		 GPIO_PIN_10
+#define RADIO_DIO1_GPIO_Port GPIOA
 
-// #define RADIO_DIO1_Pin 		 GPIO_PIN_4
-// #define RADIO_DIO1_GPIO_Port GPIOB
+#define RADIO_DIO2_Pin 		 GPIO_PIN_4
+#define RADIO_DIO2_GPIO_Port GPIOB
 
-#define RADIO_DIO3_Pin 		 GPIO_PIN_0
+#define RADIO_DIO3_Pin 		 GPIO_PIN_9
 #define RADIO_DIO3_GPIO_Port GPIOA
 
 // #define RADIO_DIOx_PIN      GPIO_PIN_4

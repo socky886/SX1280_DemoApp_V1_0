@@ -226,7 +226,10 @@ uint32_t GpioRead( GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin )
   */
 void HAL_GPIO_EXTI_Callback( uint16_t GPIO_Pin )
 {
-  GpioLaunchIrqHandler( GPIO_Pin );
+//   GpioLaunchIrqHandler( GPIO_Pin );
+    SX1280OnDioIrq();
+
+     
 }
 
 /**

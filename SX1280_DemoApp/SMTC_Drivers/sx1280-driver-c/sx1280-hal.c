@@ -27,7 +27,7 @@ Maintainer: Miguel Luis, Matthieu Verdy and Benjamin Boulet
  * \warning The application must ensure the maximal useful size to be much lower
  *          than the MAX_HAL_BUFFER_SIZE
  */
-#define MAX_HAL_BUFFER_SIZE   0xFFF
+#define MAX_HAL_BUFFER_SIZE   0xFF
 
 #define IRQ_HIGH_PRIORITY  0
 
@@ -135,12 +135,12 @@ void SX1280HalIoIrqInit( DioIrqHandler **irqHandlers )
 // #if( RADIO_DIO2_ENABLE )
 // 	GpioSetIrq( RADIO_DIO2_GPIO_Port, RADIO_DIO2_Pin, IRQ_HIGH_PRIORITY, irqHandlers[0] );
 // #endif
-#if( RADIO_DIO3_ENABLE )
-	GpioSetIrq( RADIO_DIO3_GPIO_Port, RADIO_DIO3_Pin, IRQ_HIGH_PRIORITY, irqHandlers[0] );
-#endif
-#if( !RADIO_DIO1_ENABLE && !RADIO_DIO2_ENABLE && !RADIO_DIO3_ENABLE )
-#error "Please define a DIO" 
-#endif
+// #if( RADIO_DIO3_ENABLE )
+// 	GpioSetIrq( RADIO_DIO3_GPIO_Port, RADIO_DIO3_Pin, IRQ_HIGH_PRIORITY, irqHandlers[0] );
+// #endif
+// #if( !RADIO_DIO1_ENABLE && !RADIO_DIO2_ENABLE && !RADIO_DIO3_ENABLE )
+// #error "Please define a DIO" 
+// #endif
 }
 
 void SX1280HalReset( void )
@@ -342,15 +342,15 @@ uint8_t SX1280HalGetDioStatus( void )
 {
 	uint8_t Status = GpioRead( RADIO_BUSY_PORT, RADIO_BUSY_PIN );
 	
-// #if( RADIO_DIO1_ENABLE )
-// 	Status |= (GpioRead( RADIO_DIO1_GPIO_Port, RADIO_DIO1_Pin ) << 1);
-// #endif
+#if( RADIO_DIO1_ENABLE )
+	Status |= (GpioRead( RADIO_DIO1_GPIO_Port, RADIO_DIO1_Pin ) << 1);
+#endif
 // #if( RADIO_DIO2_ENABLE )
 // 	Status |= (GpioRead( RADIO_DIO2_GPIO_Port, RADIO_DIO2_Pin ) << 2);
 // #endif
-#if( RADIO_DIO3_ENABLE )
-	Status |= (GpioRead( RADIO_DIO3_GPIO_Port, RADIO_DIO3_Pin ) << 3);
-#endif
+// #if( RADIO_DIO3_ENABLE )
+// 	Status |= (GpioRead( RADIO_DIO3_GPIO_Port, RADIO_DIO3_Pin ) << 3);
+// #endif
 #if( !RADIO_DIO1_ENABLE && !RADIO_DIO2_ENABLE && !RADIO_DIO3_ENABLE )
 #error "Please define a DIO" 
 #endif

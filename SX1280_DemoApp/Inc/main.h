@@ -51,7 +51,7 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-// void Error_Handler(void);
+//void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 
@@ -61,21 +61,23 @@ extern "C" {
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC
 #define B1_EXTI_IRQn EXTI15_10_IRQn
-#define DIO3_Pin GPIO_PIN_0
-#define DIO3_GPIO_Port GPIOA
-#define DIO3_EXTI_IRQn EXTI0_IRQn
+#define SX_RESET_Pin GPIO_PIN_0
+#define SX_RESET_GPIO_Port GPIOA
 #define USART_TX_Pin GPIO_PIN_2
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
 #define USART_RX_GPIO_Port GPIOA
-#define BUSY_Pin GPIO_PIN_9
-#define BUSY_GPIO_Port GPIOA
-#define SX_RESET_Pin GPIO_PIN_10
-#define SX_RESET_GPIO_Port GPIOA
+#define SPI1_NSS_Pin GPIO_PIN_8
+#define SPI1_NSS_GPIO_Port GPIOA
+#define SX_DIO1_Pin GPIO_PIN_10
+#define SX_DIO1_GPIO_Port GPIOA
+#define SX_DIO1_EXTI_IRQn EXTI15_10_IRQn
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
 #define TCK_GPIO_Port GPIOA
+#define SX_BUSY_Pin GPIO_PIN_3
+#define SX_BUSY_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
@@ -85,5 +87,3 @@ extern "C" {
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

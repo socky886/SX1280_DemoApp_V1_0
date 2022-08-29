@@ -1193,10 +1193,10 @@ void SX1280ProcessIrqs( void )
 {
     RadioPacketTypes_t packetType = PACKET_TYPE_NONE;
 
-    if( SX1280GetOpMode( ) == MODE_SLEEP )
-    {
-        return; // DIO glitch on V2b :-)
-    }
+    // if( SX1280GetOpMode( ) == MODE_SLEEP )
+    // {
+    //     return; // DIO glitch on V2b :-)
+    // }
 
     if( PollingMode == true )
     {
@@ -1209,7 +1209,7 @@ void SX1280ProcessIrqs( void )
         else
         {
             // printf("no interrupt\n");
-            return;
+            // return;
         }
     }
 

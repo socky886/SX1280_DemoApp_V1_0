@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\common\bin\cspybat" -f "C:\Users\andywei\Desktop\sx1280\SX1280_DemoApp_V1_0\SX1280_DemoApp\EWARM\settings\SX1280_L476RG_DemoApp.SX1280_L476RG_DemoApp.general.xcl" --backend -f "C:\Users\andywei\Desktop\sx1280\SX1280_DemoApp_V1_0\SX1280_DemoApp\EWARM\settings\SX1280_L476RG_DemoApp.SX1280_L476RG_DemoApp.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\common\bin\cspybat" -f "E:\sx1280\SX1280_DemoApp_V1_0\SX1280_DemoApp\EWARM\settings\SX1280_L476RG_DemoApp.SX1280_L476RG_DemoApp.general.xcl" --backend -f "E:\sx1280\SX1280_DemoApp_V1_0\SX1280_DemoApp\EWARM\settings\SX1280_L476RG_DemoApp.SX1280_L476RG_DemoApp.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\common\bin\cspybat" -f "C:\Users\andywei\Desktop\sx1280\SX1280_DemoApp_V1_0\SX1280_DemoApp\EWARM\settings\SX1280_L476RG_DemoApp.SX1280_L476RG_DemoApp.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\andywei\Desktop\sx1280\SX1280_DemoApp_V1_0\SX1280_DemoApp\EWARM\settings\SX1280_L476RG_DemoApp.SX1280_L476RG_DemoApp.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\common\bin\cspybat" -f "E:\sx1280\SX1280_DemoApp_V1_0\SX1280_DemoApp\EWARM\settings\SX1280_L476RG_DemoApp.SX1280_L476RG_DemoApp.general.xcl" "--debug_file=%~1" --backend -f "E:\sx1280\SX1280_DemoApp_V1_0\SX1280_DemoApp\EWARM\settings\SX1280_L476RG_DemoApp.SX1280_L476RG_DemoApp.driver.xcl" 
 
 @echo off 
 :end

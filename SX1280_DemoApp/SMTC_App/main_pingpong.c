@@ -290,7 +290,9 @@ int main( void )
     Radio.SetBufferBaseAddresses( 0x00, 0x00 );
     Radio.SetTxParams( TX_OUTPUT_POWER, RADIO_RAMP_02_US );
     
-    SX1280SetPollingMode( );
+    // SX1280SetPollingMode( );
+    //Radio.SetPollingMode();
+    Radio.SetInterruptMode();
 
     #if defined( MODE_BLE )
         // only used in GENERIC and BLE mode
@@ -336,8 +338,8 @@ int main( void )
 
         while (1)
         {
-            SX1280ProcessIrqs();
-
+            // SX1280ProcessIrqs();
+            // HAL_Delay(3);
             switch (AppState)
             {
             case APP_RX:
@@ -468,7 +470,7 @@ int main( void )
                 // }
                 // else
                 {
-                    Radio.SetDioIrqParams( RxIrqMask,  IRQ_RADIO_NONE, IRQ_RADIO_NONE,RxIrqMask );
+                    Radio.SetDioIrqParams( RxIrqMask,  RxIrqMask,IRQ_RADIO_NONE, IRQ_RADIO_NONE);
                     Radio.SetRx( ( TickTime_t ) { RX_TIMEOUT_TICK_SIZE, RX_TIMEOUT_VALUE } );
                 }
                 break;
@@ -523,6 +525,7 @@ int main( void )
 void OnTxDone( void )
 {
     AppState = APP_TX;
+    printf("tx packet successfully\n");
 }
 
 void OnRxDone( void )
@@ -568,7 +571,9 @@ void sx1280_app_tx(void)
     // else
     {
         memcpy(Buffer, PingMsg, PINGPONGSIZE);
-        Radio.SetDioIrqParams(TxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE, TxIrqMask);
+        // Radio.SetDioIrqParams(TxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE, TxIrqMask);
+
+        Radio.SetDioIrqParams(TxIrqMask, TxIrqMask,IRQ_RADIO_NONE, IRQ_RADIO_NONE );
         Radio.SendPayload(Buffer, BufferSize, (TickTime_t){RX_TIMEOUT_TICK_SIZE, TX_TIMEOUT_VALUE});
         AppState = APP_LOWPOWER;
     }    
@@ -584,7 +589,9 @@ void sx1280_app_rx(void)
     //     return;
     // else
     {
-        Radio.SetDioIrqParams(RxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE, RxIrqMask);
+        // Radio.SetDioIrqParams(RxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE, RxIrqMask);
+
+        Radio.SetDioIrqParams(RxIrqMask,RxIrqMask, IRQ_RADIO_NONE, IRQ_RADIO_NONE);
         Radio.SetRx((TickTime_t){RX_TIMEOUT_TICK_SIZE, RX_TIMEOUT_VALUE});
         AppState = APP_LOWPOWER;
     }

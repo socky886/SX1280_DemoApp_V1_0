@@ -997,6 +997,12 @@
         <name>$PROJ_DIR$\..\Src\lptim.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\Src\main.c</name>
+        <excluded>
+          <configuration>SX1280_L476RG_DemoApp</configuration>
+        </excluded>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\SMTC_App\main_pingpong.c</name>
       </file>
       <file>
@@ -1109,6 +1115,9 @@
       <name>sx9360</name>
       <file>
         <name>$PROJ_DIR$\..\SMTC_Drivers\peripherals\sx9306\sx9306.c</name>
+        <excluded>
+          <configuration>SX1280_L476RG_DemoApp</configuration>
+        </excluded>
       </file>
     </group>
   </group>
